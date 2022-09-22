@@ -16,6 +16,12 @@ app.get("/json",(req,res)=>{
         message.message= message.message.toUpperCase();
     res.json(message);
 });
+app.get("/now",(req,res,next)=>{
+    req.time=Date.now().toString();
+    next();
+}, (req,res)=>{
+    res.send({"time":req.time});
+});
 
 
 
