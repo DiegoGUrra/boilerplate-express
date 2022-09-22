@@ -1,4 +1,5 @@
 require("dotenv").config();
+let bodyParser=require("body-parser");
 let express = require('express');
 let app = express();
 //console.log("Hello World");
@@ -10,6 +11,11 @@ app.use("/", (req, res,next)=>{
     next();
 });
 app.use("/public",express.static(__dirname+"/public"));
+
+//necessary for bodyParser to work https://stackoverflow.com/questions/38306569/what-does-body-parser-do-with-express
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 app.get("/json",(req,res)=>{ 
     let message = {"message": "Hello json"};
     if (process.env.MESSAGE_STYLE==="uppercase")
@@ -28,7 +34,6 @@ app.get("/:word/echo",(req,res)=>
 app.get("/name",(req,res,next)=>(
     res.send({"name": `${req.query.first} ${req.query.last}`})
 ));
-
 
 
 
