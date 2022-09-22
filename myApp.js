@@ -22,6 +22,9 @@ app.get("/now",(req,res,next)=>{
 }, (req,res)=>{
     res.send({"time":req.time});
 });
+app.get("/:word/echo",(req,res)=>
+    res.send({"echo":req.params.word})
+);
 
 
 
