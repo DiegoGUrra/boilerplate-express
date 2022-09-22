@@ -5,6 +5,10 @@ let app = express();
 app.get("/",function (req, res) {
         res.sendFile(__dirname+"/views/index.html");
     });
+app.use("/", (req, res,next)=>{
+    console.log(req.method+" "+req.path+" - "+req.ip);
+    next();
+});
 app.use("/public",express.static(__dirname+"/public"));
 app.get("/json",(req,res)=>{ 
     let message = {"message": "Hello json"};
